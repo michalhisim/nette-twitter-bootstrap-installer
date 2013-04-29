@@ -47,12 +47,12 @@ class ScriptHandler {
         }
 
         foreach (glob("$bootstrapDir/js/bootstrap*.js") as $src) {
-            $dst = "$webDir/js/" . basename($src);
+            $dst = "$webDir/js/bootstrap/" . basename($src);
             copy($src, $dst);
         }
 
-        foreach (glob("$bootstrapDir/images/*.png") as $src) {
-            $dst = "$webDir/img/" . basename($src);
+        foreach (glob("$bootstrapDir/img/*.png") as $src) {
+            $dst = "$webDir/images/" . basename($src);
             copy($src, $dst);
         }
     }
