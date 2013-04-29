@@ -17,8 +17,17 @@ class ScriptHandler {
     static private function installBootstrap(CommandEvent $event) {
         $event->getIO()->write('<info>Generating bootstrap assets</info>');
 
-        $options = self::getOptions($event);
-        $webDir = $options['nette-web-dir'];
+        $configOptions = self::getConfigOptions($event);
+        $vendorDir = $configOptions['vendor-dir'];
+
+        if (!is_dir($vendorDir)) {
+            echo "The vendor-dir ($vendorDir) specified in composer.json was not found in " . getcwd() . ", can not build bootstrap file.\n";
+
+            return;
+        }
+
+        $extraOptions = self::getExtraOptions($event);
+        $webDir = $extraOptions['nette-web-dir'];
 
         if (!is_dir($webDir)) {
             echo "The nette-web-dir ($webDir) specified in composer.json was not found in " . getcwd() . ", can not build bootstrap file.\n";
@@ -26,23 +35,23 @@ class ScriptHandler {
             return;
         }
 
-        $bootstrapDir = "vendor/twitter/bootstrap";
+        $bootstrapDir = $vendorDir . "/twitter/bootstrap";
 
-        self::createDirectory("$webDir/css");
-        self::createDirectory("$webDir/js");
-        self::createDirectory("$webDir/img");
+        self::createDirectory("$webDir/css/bootstrap");
+        self::createDirectory("$webDir/js/bootstrap");
+        self::createDirectory("$webDir/images");
 
         foreach (glob("$bootstrapDir/less/*.less") as $src) {
-            $dst = "$webDir/css/" . basename($src);
+            $dst = "$webDir/css/bootstrap/" . basename($src);
             copy($src, $dst);
         }
 
-        foreach (glob("$bootstrapDir/js/*.js") as $src) {
+        foreach (glob("$bootstrapDir/js/bootstrap*.js") as $src) {
             $dst = "$webDir/js/" . basename($src);
             copy($src, $dst);
         }
 
-        foreach (glob("$bootstrapDir/img/*.png") as $src) {
+        foreach (glob("$bootstrapDir/images/*.png") as $src) {
             $dst = "$webDir/img/" . basename($src);
             copy($src, $dst);
         }
@@ -54,11 +63,21 @@ class ScriptHandler {
         }
     }
 
-    static protected function getOptions(CommandEvent $event) {
+    static protected function getExtraOptions(CommandEvent $event) {
         $options = array_merge(array(
             'nette-web-dir' => 'www',
                 ), $event->getComposer()->getPackage()->getExtra());
 
+        return $options;
+    }
+
+    static protected function getConfigOptions(CommandEvent $event) {
+        $allConfig = $event->getComposer()->getConfig()->all();
+        
+        $options = array_merge(array(
+            'vendor-dir' => './li/bs',
+                ), $allConfig['config']);
+        
         return $options;
     }
 
