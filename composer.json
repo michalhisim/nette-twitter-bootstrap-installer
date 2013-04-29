@@ -10,6 +10,9 @@
         "post-install-cmd": "michalhisim\\NetteTwitterBootstrapInstaller\\Composer\\ScriptHandler::postInstall",
         "post-update-cmd": "michalhisim\\NetteTwitterBootstrapInstaller\\Composer\\ScriptHandler::postUpdate"
     },
+    "autoload": {
+        "psr-0": {"": "/src"}
+    },
     "extra": {
         "nette-web-dir": "web"
     }
