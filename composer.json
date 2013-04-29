@@ -4,7 +4,7 @@
     "keywords": ["installer", "twitter-bootstrap", "nette"],
     "license": "MIT",
     "require": {
-        "twitter/bootstrap": "2.*",
+        "twitter/bootstrap": "2.*"
     },
     "scripts": {
         "post-install-cmd": "michalhisim\\NetteTwitterBootstrapInstaller\\Composer\\ScriptHandler::postInstall",
