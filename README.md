@@ -7,7 +7,7 @@ Inspired by https://github.com/sanpii/twitter-bootstrap-installer
 
 ## Instalation
 
-    $ composer require 'michalhisim/nette-twitter-bootstrap-installer *@dev'
+    $ composer require michalhisim/nette-twitter-bootstrap-installer *@dev
 
 And append this configuration in `composer.json`:
 
