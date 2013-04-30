@@ -36,10 +36,15 @@ class ScriptHandler {
         }
 
         $bootstrapDir = $vendorDir . "/twitter/bootstrap";
-
+        
         self::createDirectory("$webDir/css/bootstrap");
         self::createDirectory("$webDir/js/bootstrap");
         self::createDirectory("$webDir/images");
+        
+        require  $vendorDir . '/leafo/lessphp/lessc.inc.php';
+        $lessc = new \lessc();
+        $css = $lessc->compileFile("$bootstrapDir/less/bootstrap.less");
+        file_put_contents("$webDir/css/bootstrap/bootstrap.css", $css);
 
         foreach (glob("$bootstrapDir/less/*.less") as $src) {
             $dst = "$webDir/css/bootstrap/" . basename($src);
