@@ -37,8 +37,8 @@ class ScriptHandler {
 
         $bootstrapDir = $vendorDir . "/twitter/bootstrap";
         
-        self::createDirectory("$webDir/css/bootstrap");
-        self::createDirectory("$webDir/js/bootstrap");
+        self::createDirectory("$webDir/css/bootstrap3");
+        self::createDirectory("$webDir/js/bootstrap3");
         self::createDirectory("$webDir/images");
         
         /*require  $vendorDir . '/leafo/lessphp/lessc.inc.php';
