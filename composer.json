@@ -4,7 +4,7 @@
     "keywords": ["installer", "twitter-bootstrap", "nette"],
     "license": "MIT",
     "require": {
-        "twitter/bootstrap": "dev-3.*",
+        "twitter/bootstrap": "dev-3.0.0-wip",
         "leafo/lessphp": "*"
     },
     "scripts": {
