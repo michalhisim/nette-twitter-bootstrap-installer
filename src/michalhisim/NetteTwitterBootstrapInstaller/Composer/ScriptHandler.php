@@ -41,22 +41,25 @@ class ScriptHandler {
         self::createDirectory("$webDir/js/bootstrap");
         self::createDirectory("$webDir/images");
         
-        require  $vendorDir . '/leafo/lessphp/lessc.inc.php';
+        /*require  $vendorDir . '/leafo/lessphp/lessc.inc.php';
         $lessc = new \lessc();
         $css = $lessc->compileFile("$bootstrapDir/less/bootstrap.less");
-        file_put_contents("$webDir/css/bootstrap/bootstrap.css", $css);
+        file_put_contents("$webDir/css/bootstrap/bootstrap.css", $css);*/
+        $cssSrc = "$bootstrapDir/dist/css/bootstrap.min.css";
+        $cssDst = "$webDir/css/bootstrap3/bootstrap.min.css";
+        copy($cssSrc, $cssDst);
 
         foreach (glob("$bootstrapDir/less/*.less") as $src) {
-            $dst = "$webDir/css/bootstrap/" . basename($src);
+            $dst = "$webDir/css/bootstrap3/" . basename($src);
             copy($src, $dst);
         }
 
         foreach (glob("$bootstrapDir/js/bootstrap*.js") as $src) {
-            $dst = "$webDir/js/bootstrap/" . basename($src);
+            $dst = "$webDir/js/bootstrap3/" . basename($src);
             copy($src, $dst);
         }
 
-        foreach (glob("$bootstrapDir/img/*.png") as $src) {
+        foreach (glob("$bootstrapDir/assets/ico/*.png") as $src) {
             $dst = "$webDir/images/" . basename($src);
             copy($src, $dst);
         }
